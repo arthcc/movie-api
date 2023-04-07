@@ -24,8 +24,11 @@ namespace FilmesAPI
         {
             var connectionString = Configuration.GetConnectionString("FilmeConnection");
 
+            //services.AddDbContext<FilmeContext>(opts =>
+            //    opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
             services.AddDbContext<FilmeContext>(opts =>
-                opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+                  opts.UseSqlite(connectionString));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers().AddNewtonsoftJson();
@@ -33,7 +36,7 @@ namespace FilmesAPI
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Title", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Filme API", Version = "v1" });
             });
         }
 
