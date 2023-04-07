@@ -4,6 +4,9 @@ using FilmeApi2.Data.Dtos;
 using FilmeApi2.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace FilmesAPI.Controllers;
 
@@ -14,14 +17,12 @@ public class FilmeController : ControllerBase
     private FilmeContext _conext;
     private IMapper _mapper;
 
-
-
-
     public FilmeController(FilmeContext conext, IMapper mapper)
     {
         _conext = conext;
         _mapper = mapper;
     }
+    
     [HttpPost]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {   
@@ -35,6 +36,7 @@ public class FilmeController : ControllerBase
             filme);
 
     }
+    
     [HttpGet]
     public IEnumerable<Filme> LerFime([FromQuery]int skip = 0,
         [FromQuery]int take = 50)
