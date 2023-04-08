@@ -1,5 +1,4 @@
-﻿using FilmeApi2.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace FilmeApi2.Data;
 

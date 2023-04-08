@@ -19,11 +19,11 @@ namespace FilmesAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("FilmeConnection");
 
+            //Remoção para usar EntityFramework SqlLite ao invés de MySQL
             //services.AddDbContext<FilmeContext>(opts =>
             //    opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
@@ -40,7 +40,6 @@ namespace FilmesAPI
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
