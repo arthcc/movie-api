@@ -39,7 +39,7 @@ namespace FilmesAPI
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Filme API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FilmeS API V1", Version = "v1" });
             });
         }
 
@@ -49,7 +49,7 @@ namespace FilmesAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Title v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Filmes API V1"));
             }
 
             app.UseHttpsRedirection();

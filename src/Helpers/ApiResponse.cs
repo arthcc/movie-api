@@ -1,5 +1,12 @@
 ﻿namespace FilmeApi2.Helpers
 {
+    /// <summary>
+    /// Classe de resposta da API.
+    /// Essa é uma classe genérica que aceita qualquer tipo de objeto como parâmetro.
+    /// Ela pode ser reutilizada por todas as chamadas da API.
+    /// Padronizando a resposta que o front-end irá receber e facilitando o tratamento de erros.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ApiResponse<T> where T : class
     {
         public T Data { get; set; }

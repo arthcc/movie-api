@@ -8,6 +8,13 @@ using System;
 
 namespace FilmeApi2MSTests.AcceptanceTests
 {
+    /// <summary>
+    /// Essa classe de testes, representa a ideia do "Teste de Aceitação".
+    /// Os testes de aceitação são testes que simulam o comportamento do usuário final.
+    /// Então a ideia não é só testar uma unidade de código, e sim o comportamento do sistema como um todo.
+    /// Eles são mais lentos que os testes unitários, mas são mais confiáveis.
+    /// E fazem parte do ciclo de desenvolvimento de software.
+    /// </summary>
     [TestClass]
     public class CreateFilmeACTests
     {

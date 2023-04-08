@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesAPI.Controllers;
 
+
+/// <summary>
+/// FilmeController deve ser "burra" e não deve ter regras de negócio.
+/// Em um projeto de back-end profissional, a regra de negócio deve ser implementada em uma camada de serviço.
+/// E a camada de serviço deve ser injetada na camada de controller.
+/// </summary>
 [ApiController]
 [Route("filme")]
 public class FilmeController : ControllerBase
@@ -15,56 +21,14 @@ public class FilmeController : ControllerBase
         _filmeService = filmeService;
     }
 
+
+    //Não estamos trabalhando com método asyncrono no momento
+    //Mas, caso fosse necessário, basta adicionar o "async" e o "await" no método.
+    //E nas chamadas de serviço, adicionar o "async" e o "await" também.
     [HttpPost]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
         var result = _filmeService.CreateFilme(filmeDto);
         return StatusCode(result.StatusCode, result);
     }
-
-    //[HttpGet]
-    //public IEnumerable<Filme> LerFime([FromQuery] int skip = 0,
-    //    [FromQuery] int take = 50)
-    //{
-    //    return _conext.Filmes.Skip(skip).Take(take);
-    //}
-
-    //[HttpGet("{id}")]
-    //public IActionResult RecuperaPorId(int id)
-    //{
-    //    var filme = _conext.Filmes.FirstOrDefault(filme => filme.Id == id);
-    //    if (filme == null) return NotFound();
-    //    return Ok(filme);
-    //}
-
-    //[HttpPut("{id}")]
-    //public IActionResult AtualizaFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
-    //{
-    //    var filme = _conext.Filmes.FirstOrDefault(
-    //        filme => filme.Id == id);
-    //    if (filme == null) return NotFound();
-    //    _mapper.Map(filmeDto, filme);
-    //    _conext.SaveChanges();
-    //    return NoContent();
-    //}
-
-    //[HttpPatch("{id}")]
-    //public IActionResult AtualizaFilmeParcial(int id, JsonPatchDocument<UpdateFilmeDto> patch)
-    //{
-    //    var filme = _conext.Filmes.FirstOrDefault(
-    //        filme => filme.Id == id);
-    //    if (filme == null) return NotFound();
-
-    //    var filmeParaAtualizar = _mapper.Map<UpdateFilmeDto>(filme);
-    //    patch.ApplyTo(filmeParaAtualizar, ModelState);
-
-    //    if (!TryValidateModel(filmeParaAtualizar))
-    //    {
-    //        return ValidationProblem(ModelState);
-    //    }
-
-    //    _mapper.Map(filmeParaAtualizar, filme);
-    //    _conext.SaveChanges();
-    //    return NoContent();
-    //}
 }
