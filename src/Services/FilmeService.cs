@@ -11,9 +11,9 @@ namespace FilmeApi2.Services
         private IMapper _mapper;
         
         //opcional, pode usar repositório para deixar a regra de negócio no serviço e a regra de banco no repositório
-        private FilmeContext _context; 
+        private IFilmeContext _context; 
         
-        public FilmeService(IMapper mapper, FilmeContext context)
+        public FilmeService(IMapper mapper, IFilmeContext context)
         {
             _mapper = mapper;
             _context = context;

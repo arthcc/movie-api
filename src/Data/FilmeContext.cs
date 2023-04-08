@@ -2,14 +2,14 @@
 
 namespace FilmeApi2.Data;
 
-public class FilmeContext : DbContext 
+public class FilmeContext : DbContext, IFilmeContext
 
 {
     public FilmeContext(DbContextOptions<FilmeContext> opts)
-        : base (opts)
+           : base(opts)
     {
-
     }
 
-    public DbSet<Filme> Filmes { get; set; }
+    public virtual DbSet<Filme> Filmes { get; set; }
+
 }

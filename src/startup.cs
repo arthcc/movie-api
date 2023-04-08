@@ -1,5 +1,6 @@
 ﻿using System;
 using FilmeApi2.Data;
+using FilmeApi2.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,14 @@ namespace FilmesAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //Injeção de dependência (DI)
+            services.AddScoped<IFilmeService, FilmeService>();
+            services.AddScoped<IFilmeContext, FilmeContext>();
+
+
             var connectionString = Configuration.GetConnectionString("FilmeConnection");
 
             //Remoção para usar EntityFramework SqlLite ao invés de MySQL
-            //services.AddDbContext<FilmeContext>(opts =>
-            //    opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
             services.AddDbContext<FilmeContext>(opts =>
                   opts.UseSqlite(connectionString));
 

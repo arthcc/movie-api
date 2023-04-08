@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using FilmeApi2.Dtos;
+﻿using FilmeApi2.Dtos;
 using FilmeApi2.Services;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 
 namespace FilmesAPI.Controllers;
 
