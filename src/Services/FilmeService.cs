@@ -46,8 +46,36 @@ namespace FilmeApi2.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<CreateFilmeDto>.Error(ex.Message);
+                return ApiResponse<CreateFilmeDto>.Server.Error(ex.Message);
             }
         }
+
+        public class FilmeService : IFilmeService
+        {
+            // ...
+
+            public ApiResponse<FilmeDto> GetFilme(int filmeId)
+            {
+                try
+                {
+                    Filme filme = _context.Filmes.FirstOrDefault(f => f.Id == filmeId);
+
+                    if (filme == null)
+                    {
+                        return ApiResponse<FilmeDto>.NotFound("Filme não encontrado.");
+                    }
+
+                    FilmeDto filmeDto = _mapper.Map<FilmeDto>(filme);
+                    return ApiResponse<FilmeDto>.Success(filmeDto);
+                }
+                catch (Exception ex)
+                {
+                    return ApiResponse<FilmeDto>.ServerError(ex.Message);
+                }
+            }
+
+            // ...
+        }
+
     }
 }

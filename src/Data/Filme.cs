@@ -16,5 +16,6 @@ namespace FilmeApi2.Data
         public string? Genero { get; set; }
         public int Duracao { get; set; }
         public string? Elenco { get; set; }
+        public float Avaliacao { get; set; }
     }
 }

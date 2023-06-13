@@ -1,0 +1,9 @@
+Key                              | Value (English)                 | Value (Portuguese)
+------------------------------------------------------------------------------------------
+Required_Titulo                  | The title of the movie is required! | O título do Filme é obrigatório!
+Required_Genero                  | The genre of the movie is required! | O gênero do Filme é obrigatório!
+StringLength_Genero              | The genre length exceeds the character limit! | O tamanho do gênero excede o limite de caracteres!
+Required_Duracao                 | The duration is required! | A duração é obrigatória!
+Range_Duracao                    | The duration must be between 70 and 400 minutes! | A duração deve ter entre 70 a 400 minutos
+Required_Elenco                  | The cast name is required! | O nome do elenco é obrigatório!
+Required_Avaliacao               | Please enter a rating! | Por favor insira uma nota de avaliação!
