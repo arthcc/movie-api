@@ -28,7 +28,14 @@ public class FilmeController : ControllerBase
     [HttpPost]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
-        var result = _filmeService.CreateFilme(filmeDto);
-        return StatusCode(result.StatusCode, result);
+        var Result = _filmeService.CreateFilme(filmeDto);
+        return StatusCode(Result.StatusCode, Result);
+    }
+
+    [HttpGet]
+    public IActionResult BuscaFilme(string titulo)
+    {
+        var Result = _filmeService.BuscarFilme(titulo);
+        return StatusCode(Result.StatusCode, Result);
     }
 }

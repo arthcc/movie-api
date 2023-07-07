@@ -2,7 +2,9 @@
 using FilmeApi2.Data;
 using FilmeApi2.Dtos;
 using FilmeApi2.Helpers;
+using SQLitePCL;
 using System;
+using System.Linq;
 
 namespace FilmeApi2.Services
 {
@@ -24,6 +26,20 @@ namespace FilmeApi2.Services
         {
             _mapper = mapper;
             _context = context;
+        }
+
+        public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
+        {
+            try
+            {   
+                var filmeResult = _context.Filmes.FirstOrDefault(x => x.Titulo.Equals(titulo));
+                BuscarFilmeDto filme = _mapper.Map<BuscarFilmeDto>(filmeResult);
+                return ApiResponse<BuscarFilmeDto>.Success(filme);
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<BuscarFilmeDto>.Error(ex.Message);
+            }
         }
 
         /// <summary>
@@ -49,5 +65,7 @@ namespace FilmeApi2.Services
                 return ApiResponse<CreateFilmeDto>.Error(ex.Message);
             }
         }
+
+   
     }
 }
