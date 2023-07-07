@@ -6,5 +6,6 @@ namespace FilmeApi2.Services
     public interface IFilmeService
     {
         ApiResponse<CreateFilmeDto> CreateFilme(CreateFilmeDto createFilmeDto);
+        ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo);
     }
 }
