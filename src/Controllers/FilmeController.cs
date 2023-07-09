@@ -32,10 +32,17 @@ public class FilmeController : ControllerBase
         return StatusCode(Result.StatusCode, Result);
     }
 
-    [HttpGet]
+    [HttpGet("BuscarFilme")]
     public IActionResult BuscaFilme(string titulo)
     {
         var Result = _filmeService.BuscarFilme(titulo);
+        return StatusCode(Result.StatusCode, Result);
+    }
+
+    [HttpGet("BuscarGenero")]
+    public IActionResult BuscaGenero(string genero)
+    {
+        var Result = _filmeService.BuscarGenero(genero);
         return StatusCode(Result.StatusCode, Result);
     }
 }

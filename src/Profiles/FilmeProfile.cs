@@ -12,5 +12,6 @@ public class FilmeProfile : Profile
     {
         CreateMap<CreateFilmeDto, Filme>(); 
         CreateMap<Filme, BuscarFilmeDto>();
+        CreateMap<Filme, BuscarGeneroDto>();
     }
  }
