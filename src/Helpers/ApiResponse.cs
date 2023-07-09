@@ -20,14 +20,16 @@
             StatusCode = statusCode;
         }
 
-        public static ApiResponse<T> Success(T data, int statusCode = 200)
+        public static ApiResponse<T> Success(T data,  int statusCode = 200)
         {
-            return new ApiResponse<T>(data, null, statusCode);
+            return new ApiResponse<T>(data, "Requisição feita com Sucesso", statusCode);
         }
 
         public static ApiResponse<T> Error(string message, int statusCode = 400)
         {
-            return new ApiResponse<T>(default(T), message, statusCode);
+            return new ApiResponse<T>(default(T), "Erro na Requisição", statusCode);
         }
+
+
     }
 }
