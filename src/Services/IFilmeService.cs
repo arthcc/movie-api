@@ -7,5 +7,8 @@ namespace FilmeApi2.Services
     {
         ApiResponse<CreateFilmeDto> CreateFilme(CreateFilmeDto createFilmeDto);
         ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo);
+        ApiResponse<BuscarGeneroDto> BuscarGenero(string genero);
+        //Buscar Gênero feito 
+
     }
 }

@@ -28,6 +28,21 @@ namespace FilmeApi2.Services
             _context = context;
         }
 
+
+        public ApiResponse<BuscarGeneroDto> BuscarGenero(string genero)
+        {
+            try
+            {
+                var filmeResult = _context.Filmes.FirstOrDefault(x => x.Genero.Equals(genero));
+                BuscarGeneroDto filme = _mapper.Map<BuscarGeneroDto>(filmeResult);
+                return ApiResponse<BuscarGeneroDto>.Success(filme);
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<BuscarGeneroDto>.Error(ex.Message);
+            }
+        }
+
         public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
         {
             try
@@ -65,7 +80,5 @@ namespace FilmeApi2.Services
                 return ApiResponse<CreateFilmeDto>.Error(ex.Message);
             }
         }
-
-   
     }
 }
