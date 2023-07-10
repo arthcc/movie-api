@@ -27,7 +27,7 @@
 
         public static ApiResponse<T> Error(string message, int statusCode = 400)
         {
-            return new ApiResponse<T>(default(T), "Erro na Requisição", statusCode);
+            return new ApiResponse<T>(default(T), message, statusCode);
         }
 
 
