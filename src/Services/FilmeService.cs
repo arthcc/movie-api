@@ -5,6 +5,8 @@ using FilmeApi2.Helpers;
 using SQLitePCL;
 using System;
 using System.Linq;
+using System.Net;
+using System.Web.Http;
 
 namespace FilmeApi2.Services
 {
@@ -34,26 +36,55 @@ namespace FilmeApi2.Services
             try
             {
                 var filmeResult = _context.Filmes.FirstOrDefault(x => x.Genero.Equals(genero));
+
+                if (filmeResult == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
                 BuscarGeneroDto filme = _mapper.Map<BuscarGeneroDto>(filmeResult);
                 return ApiResponse<BuscarGeneroDto>.Success(filme);
+
             }
-            catch (Exception ex)
+            catch (HttpResponseException ex)
             {
-                return ApiResponse<BuscarGeneroDto>.Error(ex.Message);
+               // return ApiResponse<BuscarGeneroDto>.Error(ex.Response.ReasonPhrase, 404);
+
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return ApiResponse<BuscarGeneroDto>.Error("Genero não encontrado", 404);
+                }
+                else
+                {
+                    return ApiResponse<BuscarGeneroDto>.Error("Erro interno no servidor", 500);
+                }
             }
         }
 
-        public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
-        {
+       public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
+        { 
             try
             {   
                 var filmeResult = _context.Filmes.FirstOrDefault(x => x.Titulo.Equals(titulo));
+                if (filmeResult == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+               
                 BuscarFilmeDto filme = _mapper.Map<BuscarFilmeDto>(filmeResult);
                 return ApiResponse<BuscarFilmeDto>.Success(filme);
             }
-            catch (Exception ex)
+            catch (HttpResponseException ex)
             {
-                return ApiResponse<BuscarFilmeDto>.Error(ex.Message);
+                // return ApiResponse<BuscarGeneroDto>.Error(ex.Response.ReasonPhrase, 404);
+
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return ApiResponse<BuscarFilmeDto>.Error("Filme não encontrado", 404);
+                }
+                else
+                {
+                    return ApiResponse<BuscarFilmeDto>.Error("Erro interno no servidor", 500);
+                }
             }
         }
 
