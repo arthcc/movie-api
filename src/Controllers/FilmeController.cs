@@ -51,8 +51,6 @@ public class FilmeController : ControllerBase
     {
         var Result = _filmeService.BuscarGenero(genero);
 
-      
-
         return StatusCode(Result.StatusCode, Result);
     }
 }

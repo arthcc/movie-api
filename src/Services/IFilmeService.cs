@@ -1,5 +1,6 @@
 ﻿using FilmeApi2.Dtos;
 using FilmeApi2.Helpers;
+using System.Collections.Generic;
 
 namespace FilmeApi2.Services
 {
@@ -7,8 +8,8 @@ namespace FilmeApi2.Services
     {
         ApiResponse<CreateFilmeDto> CreateFilme(CreateFilmeDto createFilmeDto);
         ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo);
-        ApiResponse<BuscarGeneroDto> BuscarGenero(string genero);
-        //Buscar Gênero feito 
+        ApiResponse<List<BuscarGeneroDto>> BuscarGenero(string genero);
+        //Buscar Gênero List feito 
 
     }
 }

@@ -2,8 +2,10 @@
 using FilmeApi2.Data;
 using FilmeApi2.Dtos;
 using FilmeApi2.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using SQLitePCL;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
@@ -31,36 +33,38 @@ namespace FilmeApi2.Services
         }
 
 
-        public ApiResponse<BuscarGeneroDto> BuscarGenero(string genero)
+        public ApiResponse<List<BuscarGeneroDto>> BuscarGenero(string genero)
+
         {
             try
-            {
-                var filmeResult = _context.Filmes.FirstOrDefault(x => x.Genero.Equals(genero));
+            {   //Mudei para Where para procurar por todos os filmes com o mesmo gênero
+                var filmeResult = _context.Filmes.Where(x => x.Genero.Equals(genero));
 
-                if (filmeResult == null)
+                if (!filmeResult.Any())
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
-                BuscarGeneroDto filme = _mapper.Map<BuscarGeneroDto>(filmeResult);
-                return ApiResponse<BuscarGeneroDto>.Success(filme);
+
+                List<BuscarGeneroDto> filmes = _mapper.Map<List<BuscarGeneroDto>>(filmeResult);
+                return ApiResponse<List<BuscarGeneroDto>>.Success(filmes);
 
             }
             catch (HttpResponseException ex)
             {
-               // return ApiResponse<BuscarGeneroDto>.Error(ex.Response.ReasonPhrase, 404);
-
                 if (ex.Response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    return ApiResponse<BuscarGeneroDto>.Error("Genero não encontrado", 404);
+                    return ApiResponse<List<BuscarGeneroDto>>.Error("Gênero não encontrado", 404);
                 }
                 else
                 {
-                    return ApiResponse<BuscarGeneroDto>.Error("Erro interno no servidor", 500);
+                    return ApiResponse<List<BuscarGeneroDto>>.Error("Erro interno no servidor", 500);
                 }
             }
+
+
         }
 
-       public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
+        public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
         { 
             try
             {   
@@ -111,5 +115,7 @@ namespace FilmeApi2.Services
                 return ApiResponse<CreateFilmeDto>.Error(ex.Message);
             }
         }
+
+       
     }
 }
