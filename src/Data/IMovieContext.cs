@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using FilmeApi2.Data;
+using Microsoft.EntityFrameworkCore;
+namespace FilmeApi2
 
-namespace FilmeApi2.Data
 {
     /// <summary>
     /// Interface de implementação do contexto do banco de dados.
@@ -8,9 +10,9 @@ namespace FilmeApi2.Data
     /// Não chamamos o contexto diretamente nem no projeto principal, nem no projeto de testes,
     /// uma vez que é a camada mais sensível do projeto.
     /// </summary>
-    public interface IFilmeContext
+    public interface IMovieContext
     {
-        DbSet<Filme> Filmes { get; set; }
+        DbSet<Movie> Movies { get; set; }
         int SaveChanges();
     }
 }

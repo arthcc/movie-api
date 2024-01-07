@@ -22,7 +22,7 @@
 
         public static ApiResponse<T> Success(T data,  int statusCode = 200)
         {
-            return new ApiResponse<T>(data, "Requisição feita com Sucesso", statusCode);
+            return new ApiResponse<T>(data, "The request was successful, and the response contains the JSON structure described in the page for the call.", statusCode);
         }
 
         public static ApiResponse<T> Error(string message, int statusCode = 400)
