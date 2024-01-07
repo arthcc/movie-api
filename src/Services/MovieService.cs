@@ -19,63 +19,61 @@ namespace FilmeApi2.Services
     /// Mas, caso houvesse a camada de repositório, todo o processo de "salvar, alterar, excluir, etc" seria feito nessa camada, mas a regra continuaria nessa classe.
     /// Esse padrão é chamado de "Repository Pattern".
     /// </summary>
-    public class FilmeService : IFilmeService
+    public class MovieService : IMovieService
     {
         private IMapper _mapper;
+
+        private IMovieContext _context; 
         
-        //opcional, pode usar repositório para deixar a regra de negócio no serviço e a regra de banco no repositório
-        private IFilmeContext _context; 
-        
-        public FilmeService(IMapper mapper, IFilmeContext context)
+        public MovieService(IMapper mapper, IMovieContext context)
         {
             _mapper = mapper;
             _context = context;
         }
 
 
-        public ApiResponse<List<BuscarGeneroDto>> BuscarGenero(string genero)
+        public ApiResponse<List<SearchGenre>> SeachGenre(string genre)
 
         {
             try
-            {   //Mudei para Where para procurar por todos os filmes com o mesmo gênero
-                var filmeResult = _context.Filmes.Where(x => x.Genero.Equals(genero));
+            {   //Changed to "Where" so it can seach the all genres with the same name
+                var movieResult = _context.Movies.Where(x => x.Genre.Equals(genre));
 
-                if (!filmeResult.Any())
+                if (!movieResult.Any())
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
-                List<BuscarGeneroDto> filmes = _mapper.Map<List<BuscarGeneroDto>>(filmeResult);
-                return ApiResponse<List<BuscarGeneroDto>>.Success(filmes);
+                List<SearchGenre> movies = _mapper.Map<List<SearchGenre>>(movieResult);
+                return ApiResponse<List<SearchGenre>>.Success(movies);
 
             }
             catch (HttpResponseException ex)
             {
                 if (ex.Response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    return ApiResponse<List<BuscarGeneroDto>>.Error("Gênero não encontrado", 404);
+                    return ApiResponse<List<SearchGenre>>.Error("Genre Not Found", 404);
                 }
                 else
                 {
-                    return ApiResponse<List<BuscarGeneroDto>>.Error("Erro interno no servidor", 500);
+                    return ApiResponse<List<SearchGenre>>.Error("Server Error", 500);
                 }
             }
 
 
         }
-
-        public ApiResponse<BuscarFilmeDto> BuscarFilme(string titulo)
+        public ApiResponse<SearchMovie> SearchMovie(string title)
         { 
             try
             {   
-                var filmeResult = _context.Filmes.FirstOrDefault(x => x.Titulo.Equals(titulo));
-                if (filmeResult == null)
+                var movieResult = _context.Movies.FirstOrDefault(x => x.Title.Equals(title));
+                if (movieResult == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
                
-                BuscarFilmeDto filme = _mapper.Map<BuscarFilmeDto>(filmeResult);
-                return ApiResponse<BuscarFilmeDto>.Success(filme);
+                SearchMovie movie = _mapper.Map<SearchMovie>(movieResult);
+                return ApiResponse<SearchMovie>.Success(movie);
             }
             catch (HttpResponseException ex)
             {
@@ -83,11 +81,11 @@ namespace FilmeApi2.Services
 
                 if (ex.Response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    return ApiResponse<BuscarFilmeDto>.Error("Filme não encontrado", 404);
+                    return ApiResponse<SearchMovie>.Error("Movie Not Found", 404);
                 }
                 else
                 {
-                    return ApiResponse<BuscarFilmeDto>.Error("Erro interno no servidor", 500);
+                    return ApiResponse<SearchMovie>.Error("Server Error", 500);
                 }
             }
         }
@@ -99,20 +97,20 @@ namespace FilmeApi2.Services
         /// Anteriormente em caso de erro 500 (internal server), o sistema quebrava.
         /// Agora, com a nossa mensagem customizada da ApiResponse, nós podemos retornar o erro para o usuário de forma amigável e legível.
         /// </summary>
-        /// <param name="createFilmeDto"></param>
+        /// <param name="CreateMovie"></param>
         /// <returns></returns>
-        public ApiResponse<CreateFilmeDto> CreateFilme(CreateFilmeDto createFilmeDto)
+        public ApiResponse<CreateMovie> CreateMovie(CreateMovie createMovie)
         {
             try
             {
-                Filme filme = _mapper.Map<Filme>(createFilmeDto);
-                _context.Filmes.Add(filme);
+                Movie movie = _mapper.Map<Movie>(createMovie);
+                _context.Movies.Add(movie);
                 _context.SaveChanges();
-                return ApiResponse<CreateFilmeDto>.Success(createFilmeDto);
+                return ApiResponse<CreateMovie>.Success(createMovie);
             }
             catch (Exception ex)
             {
-                return ApiResponse<CreateFilmeDto>.Error(ex.Message);
+                return ApiResponse<CreateMovie>.Error(ex.Message);
             }
         }
 

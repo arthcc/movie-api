@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FilmeApi2.Migrations
 {
-    [DbContext(typeof(FilmeContext))]
+    [DbContext(typeof(MovieContext))]
     [Migration("20230407140242_SqlLiteMigrate")]
     partial class SqlLiteMigrate
     {

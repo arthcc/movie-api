@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FilmeApi2.Data
 {
@@ -7,14 +8,14 @@ namespace FilmeApi2.Data
     /// Por isso essa classe deve ficar na camada de "DATA".
     /// Evitando que outras pessoas ao desenvolverem acabem utilizando essa classe para outros fins.
     /// </summary>
-    public class Filme
+    public class Movie
     {
         [Key]
         [Required]
-        public int Id { get; set; }
-        public string? Titulo { get; set; }
-        public string? Genero { get; set; }
-        public int Duracao { get; set; }
-        public string? Elenco { get; set; }
+        public Guid? Id { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public int RunTime { get; set; }
+        public string Cast { get; set; }
     }
 }
