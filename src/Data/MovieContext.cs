@@ -8,6 +8,7 @@ public class MovieContext : DbContext, IMovieContext
     public MovieContext(DbContextOptions<MovieContext> opts)
            : base(opts)
     {
+
     }
     public MovieContext()
     {
