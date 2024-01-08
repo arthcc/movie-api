@@ -106,7 +106,9 @@ namespace FilmeApi2.Services
                 Movie movie = _mapper.Map<Movie>(createMovie);
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
+                createMovie.Id = movie.Id;
                 return ApiResponse<CreateMovie>.Success(createMovie);
+
             }
             catch (Exception ex)
             {
