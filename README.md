@@ -39,5 +39,5 @@ dotnet run
 
  ## 📄 License
 
-This project is under  MIT LICENSE  - see  [LICENSE.md](https://github.com/usuario/projeto/licenca) for more details. 
+This project is under  MIT LICENSE  - see  [LICENSE.md](https://github.com/arthcc/movie-api/blob/master/LICENSE) for more details. 
 
