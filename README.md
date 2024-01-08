@@ -1,20 +1,43 @@
-## API de Fillmes
-Uma API de filmes em .NET com as requisições POST, GET,
-#### Métodos até agora
+## 🚀 MovieX API
+Welcome to MovieX API, your go-to resource for accessing a rich repository of movie-related data. Whether you're a developer building a movie app, a data enthusiast exploring cinematic details, or a content creator looking to integrate movie information, MovieX has you covered.
 
-```http
-  GET /filme/
-  POST /Titulo, Genero, Duração, Elenco
+#### 📋 Getting Started
+
+1. Clone this repo:
+```
+git clone https://github.com/arthcc/movie-api
 ```
 
-#### Get item
-
+2. Open VisualStudio and run:
+```
+dotnet run
+```
+3. Available methods: 
 ```http
-  GET filme/${Genero}
-  GET filme/${Titulo}
+  GET /movie/
+  GET movie/${genre}
+  GET movie/${title}
+  POST /Title, Genre, Runtime, Cast
+```
+## ⚙️ Required Parameters
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `Genero`      | `string | **Obrigatório**. Genero do Filme |
-| `Titulo`      | `string | **Obrigatório**. Titulo do Filme |
+| `Genre`      | `string | **Required**. Movie Genre is required |
+| `Title`      | `string | **Required**. Movie Title is required |
+| `Cast`       | `string | **Required**. Cast name is required  |
+| `Runtime`    | `int    | **Required**.Runtime must be between 70-400 minutes  |
+
+```
+## 🛠️ Made With 
+
+
+* [SQL Lite](https://www.sqlite.org/index.html) - SQL Lite
+* [.NET Core](https://dotnet.microsoft.com) - .NET Core
+* [EF](https://learn.microsoft.com/en-us/ef/) - Etinity Framework
+
+ ## 📄 License
+
+This project is under  MIT LICENSE  - see  [LICENSE.md](https://github.com/usuario/projeto/licenca) for more details. 
+
