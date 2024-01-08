@@ -24,7 +24,7 @@ namespace FilmeApi2MSTests.AcceptanceTests
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CreateFilmeDto, Filme>();
+                cfg.CreateMap<CreateMovie, Movie>();
             });
 
             return config.CreateMapper();
@@ -34,14 +34,14 @@ namespace FilmeApi2MSTests.AcceptanceTests
         public void CreateFilme_ShouldReturnSuccess_WhenMovieIsCreated()
         {
             // Arrange
-            var filmeDto = new CreateFilmeDto { Titulo = "Test Movie", Genero = "Action", Duracao = 120, Elenco = "Test Cast" };
+            var filmeDto = new CreateMovie { Titulo = "Test Movie", Genero = "Action", Duracao = 120, Elenco = "Test Cast" };
             var mapper = GetAutoMapperConfiguration();
-            var context = new Mock<IFilmeContext>();
+            var context = new Mock<IMovieContext>();
 
-            context.Setup(c => c.Filmes.Add(It.IsAny<Filme>()));
+            context.Setup(c => c.Filmes.Add(It.IsAny<Movie>()));
             context.Setup(c => c.SaveChanges());
 
-            var service = new FilmeService(mapper, context.Object);
+            var service = new MovieService(mapper, context.Object);
 
             // Act
             var result = service.CreateFilme(filmeDto);
@@ -56,14 +56,14 @@ namespace FilmeApi2MSTests.AcceptanceTests
         public void CreateFilme_ShouldReturnError_WhenExceptionOccurs()
         {
             // Arrange
-            var filmeDto = new CreateFilmeDto { Titulo = "Test Movie", Genero = "Action", Duracao = 120, Elenco = "Test Cast" };
+            var filmeDto = new CreateMovie { Titulo = "Test Movie", Genero = "Action", Duracao = 120, Elenco = "Test Cast" };
             var mapper = GetAutoMapperConfiguration();
-            var context = new Mock<IFilmeContext>();
+            var context = new Mock<IMovieContext>();
 
-            context.Setup(c => c.Filmes.Add(It.IsAny<Filme>())).Throws(new Exception("Test exception"));
+            context.Setup(c => c.Filmes.Add(It.IsAny<Movie>())).Throws(new Exception("Test exception"));
             context.Setup(c => c.SaveChanges());
 
-            var service = new FilmeService(mapper, context.Object);
+            var service = new MovieService(mapper, context.Object);
 
             // Act
             var result = service.CreateFilme(filmeDto);
