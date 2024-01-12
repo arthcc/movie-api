@@ -13,6 +13,7 @@ public class MovieProfile : Profile
         CreateMap<CreateMovie, Movie>(); 
         CreateMap<Movie, SearchMovie>();
         CreateMap<Movie, SearchGenre>();
-        CreateMap<Movie, ChangeGenre>();
+        CreateMap<Movie, ChangeMovie>();
+        CreateMap<Movie, DeleteMovie>();
     }
  }

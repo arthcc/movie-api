@@ -23,9 +23,9 @@ namespace FilmeApi2.Services
     {
         private IMapper _mapper;
 
-        private IMovieContext _context; 
+        private MovieContext _context; 
         
-        public MovieService(IMapper mapper, IMovieContext context)
+        public MovieService(IMapper mapper, MovieContext context)
         {
             _mapper = mapper;
             _context = context;
@@ -37,7 +37,7 @@ namespace FilmeApi2.Services
         {
             try
             {   //Changed to "Where" so it can seach the all genres with the same name
-                var movieResult = _context.Movies.Where(x => x.Genre.Equals(genre));
+                var movieResult = _context.Movies.Where(x => x.Genre.Equals(genre)).ToList();
 
                 if (!movieResult.Any())
                 {
@@ -62,18 +62,20 @@ namespace FilmeApi2.Services
 
 
         }
-        public ApiResponse<SearchMovie> SearchMovie(string title)
+        public ApiResponse<List<SearchMovie>> SearchMovie(string title)
         { 
             try
-            {   
-                var movieResult = _context.Movies.FirstOrDefault(x => x.Title.Equals(title));
+            {
+                var movieResult = _context.Movies.Where(x => x.Title.Equals(title)).ToList();
                 if (movieResult == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
-               
-                SearchMovie movie = _mapper.Map<SearchMovie>(movieResult);
-                return ApiResponse<SearchMovie>.Success(movie);
+
+                List<SearchMovie> movies = _mapper.Map<List<SearchMovie>>(movieResult);
+                return ApiResponse<List<SearchMovie>>.Success(movies);
+
+
             }
             catch (HttpResponseException ex)
             {
@@ -81,11 +83,11 @@ namespace FilmeApi2.Services
 
                 if (ex.Response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    return ApiResponse<SearchMovie>.Error("Movie Not Found", 404);
+                    return ApiResponse<List<SearchMovie>>.Error("Movie Not Found", 404);
                 }
                 else
                 {
-                    return ApiResponse<SearchMovie>.Error("Server Error", 500);
+                    return ApiResponse<List<SearchMovie>>.Error("Server Error", 500);
                 }
             }
         }
@@ -104,9 +106,9 @@ namespace FilmeApi2.Services
             try
             {
                 Movie movie = _mapper.Map<Movie>(createMovie);
+                movie.Id = new Guid();
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
-                createMovie.Id = movie.Id;
                 return ApiResponse<CreateMovie>.Success(createMovie);
 
             }
@@ -116,6 +118,70 @@ namespace FilmeApi2.Services
             }
         }
 
-       
+        public ApiResponse<ChangeMovie> ChangeMovie(Guid Id, ChangeMovie changeMovie)
+        {
+            try
+            {
+                var movieResult = _context.Movies.Where(x => x.Id.Equals(Id)).FirstOrDefault();
+                if (movieResult == null)
+                {
+                    return ApiResponse<ChangeMovie>.Error("Movie Not Found with Provider Id", 404);
+                }
+
+                movieResult.Genre = changeMovie.Genre;
+                movieResult.RunTime = changeMovie.RunTime;
+                movieResult.Cast = changeMovie.Cast;
+                movieResult.Title = changeMovie.Title;
+
+
+                // Save changes to database
+                _context.Entry(movieResult).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+
+                return ApiResponse<ChangeMovie>.Success(_mapper.Map<ChangeMovie>(movieResult));
+            }
+            catch (HttpResponseException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return ApiResponse<ChangeMovie>.Error("Movie Not Found", 404);
+                }
+                else
+                {
+                    return ApiResponse<ChangeMovie>.Error("Server Error", 500);
+                }
+            }
+        }
+
+        public ApiResponse<DeleteMovie> DeleteMovie(Guid Id)
+        {
+            try
+            {
+                var movieResult = _context.Movies.Where(x => x.Id.Equals(Id)).FirstOrDefault();
+                if (movieResult == null)
+                {
+                    return ApiResponse<DeleteMovie>.Error("Movie Not Found with Provider Id", 404);
+                }
+
+                _context.Movies.Remove(movieResult);
+                _context.SaveChanges();
+
+                return ApiResponse<DeleteMovie>.Success(_mapper.Map<DeleteMovie>(movieResult));
+            }
+            catch (HttpResponseException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return ApiResponse<DeleteMovie>.Error("Movie Not Found", 404);
+                }
+                else
+                {
+                    return ApiResponse<DeleteMovie>.Error("Server Error", 500);
+                }
+            }
+        }
+
     }
+
 }
+

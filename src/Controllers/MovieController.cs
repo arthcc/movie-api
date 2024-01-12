@@ -2,6 +2,7 @@
 using FilmeApi2.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace FilmesAPI.Controllers;
@@ -39,12 +40,12 @@ public class MovieController : ControllerBase
     {
         var Result = _movieService.SearchMovie(title);
 
-   
+
         return StatusCode(Result.StatusCode, Result);
     }
 
     [HttpGet]
-    [Route("genre/{genre}")]  
+    [Route("genre/{genre}")]
     public IActionResult SeachGenre(string genre)
     {
         var Result = _movieService.SeachGenre(genre);
@@ -52,10 +53,22 @@ public class MovieController : ControllerBase
         return StatusCode(Result.StatusCode, Result);
     }
 
-    //[HttpPut("{id}")]
-  //  public void Put(int id, [FromBody] string value)
-//    {
-    
-  //  }
+    [HttpPut("/movie/{Id}")]
+    public IActionResult ChangeMovie([FromRoute] Guid Id, [FromBody] ChangeMovie changeMovie)
+    {
+        var Result = _movieService.ChangeMovie(Id, changeMovie);
+  
+        return StatusCode(Result.StatusCode, Result);
+        
+    }
+
+    [HttpDelete("/movie/{Id}")]
+
+    public IActionResult DeleteMovie([FromRoute] Guid Id)
+    {
+        var Result = _movieService.DeleteMovie(Id);
+
+        return StatusCode(Result.StatusCode, Result);
+    }
 
 }
