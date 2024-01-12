@@ -18,15 +18,18 @@ dotnet run
   GET movie/${genre}
   GET movie/${title}
   POST /Title, Genre, Runtime, Cast
+  DELETE /Id 
 ```
 ## ⚙️ Required Parameters
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
+
 | `Genre`      | `string | **Required**. Movie Genre is required |
 | `Title`      | `string | **Required**. Movie Title is required |
-| `Cast`       | `string | **Required**. Cast name is required  |
+| `Cast`       | `string | **Required**. Cast name is required   |
+| `Id`         | `Guid   | **Required**. Id is required          |
 | `Runtime`    | `int    | **Required**.Runtime must be between 70-400 minutes  |
 
 ```
