@@ -12,7 +12,7 @@ namespace FilmeApi2.Data
     {
         [Key]
         [Required]
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
         public int RunTime { get; set; }
