@@ -15,7 +15,6 @@ namespace FilmeApi2.Dtos
         public int Runtime { get; set; }
         [Required(ErrorMessage = "Cast name is required!")]
         public string Cast{ get; set; }
-        public Guid? Id { get; set; }
 
     }
 }
