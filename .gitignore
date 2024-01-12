@@ -401,3 +401,6 @@ bin/
 obj/
 *.suo
 *.user
+/src/filme.db
+/src/filme.db-shm
+/src/filme.db-wal
